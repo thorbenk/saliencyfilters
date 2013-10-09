@@ -27,7 +27,7 @@ pySaliency(vigra::NumpyArray<3, float> img) {
     
     vigra::NumpyArray<2, float> SAL(vigra::Shape2(img.shape(0), img.shape(1)));
     for(int i=0; i<img.shape(0); ++i) {
-        for(int j=0; j<img.shape(0); ++j) {
+        for(int j=0; j<img.shape(1); ++j) {
             SAL(i,j) = sal(i,j);
         }
     }
