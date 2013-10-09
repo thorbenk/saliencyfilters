@@ -1,7 +1,20 @@
 Saliency Filters - Code
 =======================
 
+About this repository
+---------------------
+I am *not* the author of this code.
+This repository is only a mirror of the code                                                                                 
+from http://www.stanford.edu/~philkr                                                                                         
+
+This repository only contains minor build fixes
+at the moment.
+
+About the code
+--------------
+
 http://www.fedeperazzi.com/saliency_filters  (project page)
+
 http://www.stanford.edu/~philkr/  (code)
 
 This software pertains to the research described in the CVPR 2012 paper:
