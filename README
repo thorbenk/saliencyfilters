@@ -1,0 +1,66 @@
+Saliency Filters - Code
+=============
+http://www.fedeperazzi.com/saliency_filters  (project page)
+http://www.stanford.edu/~philkr/  (code)
+
+This software pertains to the research described in the CVPR 2012 paper:
+Saliency Filters: Contrast Based Filtering for Salient Region Detection, by
+Federico Perazzi, Philipp Krähenbühl, Yael Pritch and Alexander Hornung
+If you're using this code in a publication, please cite our paper.
+
+This software is provided for research purposes, with absolutely no warranty
+or suggested support, and use of it must follow the BSD license agreement, at
+the top of each source file. *Please do not contact the authors for assistance
+with installing, understanding or running the code.* However if you think you
+have found an interesting bug, the authors would be grateful if you could pass
+on the information.
+
+Note that all experimental results reported in the paper are based on the
+original implementation of our algorithm that we developed while at Disney
+Research, Zurich. We are not allowed to distribute that version. This
+implementation is a comparable version that I later independently re-implemented
+based on published materials.
+
+Both the filtering (src/filter), and the superpixel code (src/superpixel) are
+pieces of software I wrote at Stanford before I joined Disney Research Zurich.
+Feel free to use them however you see fit. If you use the filtering code please
+cite my NIPS 2011 paper, where I copied the code from:
+Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials, by
+Philipp Krähenbühl and Vladlen Koltun
+
+Disney might hold a patent the saliency filter code (src/saliency). I advise you
+to use this part for research purposes only.
+
+How to compile the code
+-----------------------
+Dependencies:
+ * cmake           http://www.cmake.org/
+ * OpenCV (2.3+)   http://www.opencv.org/
+ * TBB (optional)  http://www.threadingbuildingblocks.org/
+
+Linux, Mac OS X and Windows (cygwin):
+ mkdir build
+ cd build
+ cmake -D CMAKE_BUILD_TYPE=Release ..
+ make
+ cd ..
+
+Windows
+ You're probably better off just copying all files into a Visual Studio
+ project
+
+
+How to run
+----------
+To compute the saliency of a single image use:
+ build/src/test_saliency path/to/image
+
+To compute the superpixel segmentation of a single image use:
+ build/src/test_superpixel path/to/image
+
+To run our algorithm on the benchmark of Achanta etal. set dataset_path and
+ground_truth_path in evaluate.cpp. Then compile the code and run
+ build/src/evaluate
+
+Note that this code might be a bit slower than the one used in our paper since,
+both the superpixel segmentation and the filter were not fully optimized.
