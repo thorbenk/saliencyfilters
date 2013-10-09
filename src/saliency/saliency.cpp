@@ -183,7 +183,14 @@ std::vector< float > Saliency::uniquenessFilter( const std::vector< SuperpixelSt
 	std::vector< Vec2f > features( stat.size() );
 	Mat_<float> data( stat.size(), 5 );
 	for( int i=0; i<N; i++ ) {
-		features[i] = stat[i].mean_position_ / settings_.sigma_p_;
+		//features[i] = stat[i].mean_position_ / (double)settings_.sigma_p_;
+		{
+			//due to compile error, rewrite above line explicitly
+			Vec2f x = stat[i].mean_position_;
+			x[0] = x[0]/settings_.sigma_p_;
+			x[1] = x[1]/settings_.sigma_p_;
+			features[i] = x;
+		}
 		Vec3f c = stat[i].mean_color_;
 		data(i,0) = 1;
 		data(i,1) = c[0];
@@ -214,7 +221,14 @@ std::vector< float > Saliency::distributionFilter( const std::vector< Superpixel
 	std::vector< Vec3f > features( stat.size() );
 	Mat_<float> data( stat.size(), 4 );
 	for( int i=0; i<N; i++ ) {
-		features[i] = stat[i].mean_color_ / settings_.sigma_c_;
+		//features[i] = stat[i].mean_color_ / settings_.sigma_c_;
+		{
+			Vec3f x = stat[i].mean_color_;
+			x[0] = x[0]/settings_.sigma_c_;
+			x[1] = x[1]/settings_.sigma_c_;
+			x[2] = x[2]/settings_.sigma_c_;
+			features[i] = x;
+		}
 		Vec2f p = stat[i].mean_position_;
 		data(i,0) = 1;
 		data(i,1) = p[0];
@@ -286,8 +300,4 @@ Mat_< float > Saliency::assignFilter( const Mat_< Vec3b >& im, const Mat_< int >
 	return r;
 }
 
-
-
-
-
-
+//kate: space-indent off; indent-width 4; replace-tabs off; word-wrap-column 80;
