@@ -1,1 +1,1 @@
-add_library( filter filter.cpp permutohedral.cpp )
+add_library( filter SHARED filter.cpp permutohedral.cpp )

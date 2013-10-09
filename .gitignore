@@ -1,2 +1,5 @@
 *kdev4
+*.pyc
 *~
+lena_sal.png
+_saliencyfilters.so

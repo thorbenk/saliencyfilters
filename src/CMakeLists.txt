@@ -7,6 +7,12 @@ else(TBB_FOUND)
 	set( TBB_LIBRARIES "" )
 endif(TBB_FOUND)
 
+include_directories(
+    ${VIGRA_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIR}
+    ${PYTHON_INCLUDE_DIR}
+)
+
 add_executable( test_superpixel test_superpixel.cpp )
 target_link_libraries( test_superpixel superpixel )
 
@@ -15,6 +21,23 @@ target_link_libraries( test_saliency saliency )
 
 add_executable( evaluate evaluate.cpp )
 target_link_libraries( evaluate saliency ${TBB_LIBRARIES} )
+
+add_library(_saliencyfilters SHARED                                                                                                
+    pysaliency.cpp                                                                                                         
+)                                                                                                                       
+target_link_libraries(_saliencyfilters                                                                                             
+    saliency
+    ${Boost_PYTHON_LIBRARIES}                                                                                           
+)                                                                                                                       
+                                                                                                                        
+set_target_properties(_saliencyfilters PROPERTIES PREFIX "" )                                                                      
+get_property(location TARGET _saliencyfilters PROPERTY LOCATION)                                                                   
+add_custom_command(TARGET _saliencyfilters                                                                                         
+    POST_BUILD                                                                                                          
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different                                                                       
+        ${location}                                                                                                     
+        ${PROJECT_SOURCE_DIR}                                                                                     
+)  
 
 add_subdirectory(filter)
 add_subdirectory(saliency)

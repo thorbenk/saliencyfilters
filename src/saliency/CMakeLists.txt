@@ -1,2 +1,2 @@
-add_library( saliency saliency.cpp )
+add_library( saliency SHARED saliency.cpp )
 target_link_libraries( saliency superpixel filter )
